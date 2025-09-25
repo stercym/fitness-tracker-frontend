@@ -11,3 +11,4 @@ function Navbar({ current, onChange }) {
 }
 
 export default Navbar;
+
