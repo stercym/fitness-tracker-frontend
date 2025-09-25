@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function WorkoutDetail({ id, onBack, onUpdated, onDeleted }) {
   const [workout, setWorkout] = useState(null);
@@ -17,12 +17,13 @@ function WorkoutDetail({ id, onBack, onUpdated, onDeleted }) {
 
   function handleUpdate() {
     const title = prompt("New title", workout.title);
+    const notes = prompt("New notes", workout.notes);
     if (!title) return;
 
     fetch(`http://localhost:5000/api/workouts/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...workout, title }),
+      body: JSON.stringify({ ...workout, title, notes }),
     })
       .then((res) => res.json())
       .then((updated) => {
@@ -40,9 +41,9 @@ function WorkoutDetail({ id, onBack, onUpdated, onDeleted }) {
 
   return (
     <div>
-      <h2>{workout.title}</h2>
-      <p>{workout.date}</p>
-      <p>{workout.notes}</p>
+      <h3>{workout.title}</h3>
+      <p>Date: {workout.date}</p>
+      <p>Notes: {workout.notes}</p>
       <button onClick={handleUpdate}>Edit</button>
       <button onClick={handleDelete}>Delete</button>
       <button onClick={onBack}>Back</button>
@@ -51,3 +52,4 @@ function WorkoutDetail({ id, onBack, onUpdated, onDeleted }) {
 }
 
 export default WorkoutDetail;
+
