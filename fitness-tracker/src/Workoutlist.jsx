@@ -18,3 +18,4 @@ function WorkoutsList({ workouts, onSelect }) {
 }
 
 export default WorkoutsList;
+
