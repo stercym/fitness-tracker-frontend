@@ -6,7 +6,8 @@ function ProgressOverview({ userId }) {
   useEffect(() => {
     fetch(`http://localhost:5000/api/progress/${userId}`)
       .then((res) => res.json())
-      .then((data) => setProgress(data));
+      .then((data) => setProgress(data))
+      .catch((err) => console.error("Failed to fetch progress:", err));
   }, [userId]);
 
   if (!progress) return <p>Loading...</p>;
@@ -28,3 +29,4 @@ function ProgressOverview({ userId }) {
 }
 
 export default ProgressOverview;
+
