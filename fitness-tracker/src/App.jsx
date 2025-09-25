@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from "react";
+import Navbar from "./Navbar";
+import WorkoutsList from "./WorkoutsList";
+import WorkoutForm from "./WorkoutForm";
+import WorkoutDetail from "./WorkoutDetail";
+import ProgressOverview from "./ProgressOverview";
+import Goals from "./Goals";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [workouts, setWorkouts] = useState([]);
+  const [selectedWorkout, setSelectedWorkout] = useState(null);
+  const [view, setView] = useState("workouts");
+  const userId = 1; // demo user
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/workouts")
+      .then((res) => res.json())
+      .then((data) => setWorkouts(data))
+      .catch(() => {});
+  }, []);
+
+  function handleCreated(newWorkout) {
+    setWorkouts((prev) => [...prev, newWorkout]);
+  }
+
+  function handleUpdated(updatedWorkout) {
+    setWorkouts((prev) =>
+      prev.map((w) => (w.id === updatedWorkout.id ? updatedWorkout : w))
+    );
+  }
+
+  function handleDeleted(id) {
+    setWorkouts((prev) => prev.filter((w) => w.id !== id));
+    setSelectedWorkout(null);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>Fitness Tracker</h1>
+      <Navbar current={view} onChange={setView} />
+
+      {view === "workouts" && (
+        <div>
+          <WorkoutForm onCreated={handleCreated} />
+          <WorkoutsList workouts={workouts} onSelect={setSelectedWorkout} />
+          <WorkoutDetail
+            id={selectedWorkout}
+            onBack={() => setSelectedWorkout(null)}
+            onUpdated={handleUpdated}
+            onDeleted={handleDeleted}
+          />
+        </div>
+      )}
+
+      {view === "progress" && <ProgressOverview userId={userId} />}
+      {view === "goals" && <Goals />}
+    </div>
+  );
 }
 
-export default App
+export default App;
+
+
