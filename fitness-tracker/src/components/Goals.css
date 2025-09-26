@@ -1,0 +1,28 @@
+.goals-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;        /* Center horizontally */
+  justify-content: flex-start;
+  padding-top: 120px;         /* Push it down from navbar */
+  min-height: calc(100vh - 80px);
+  text-align: center;
+}
+
+.goals-title {
+  font-size: 2.5rem;          /* Bigger heading */
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: olivedrab;
+}
+
+.goals-list {
+  list-style: none;
+  padding: 40px;
+  margin: 0;
+}
+
+.goal-item {
+  font-size: 1.5rem;          /* Bigger goal text */
+  margin: 10px 0;
+  color: #444;
+}
