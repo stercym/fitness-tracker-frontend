@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./Goals.css"; // Import CSS
 
 function Goals() {
   const [goals, setGoals] = useState([]);
@@ -11,11 +12,13 @@ function Goals() {
   }, []);
 
   return (
-    <div>
-      <h2>Goals</h2>
-      <ul>
+    <div className="goals-container">
+      <h1 className="goals-title">Exercise Goals</h1>
+      <ul className="goals-list">
         {goals.map((g) => (
-          <li key={g.id}>{g.name}</li>
+          <li key={g.id} className="goal-item">
+            {g.name}
+          </li>
         ))}
       </ul>
     </div>

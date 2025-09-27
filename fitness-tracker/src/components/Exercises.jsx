@@ -17,12 +17,13 @@ function Exercises() {
       <ExerciseForm onExerciseCreated={(e) => setExercises([...exercises, e])} />
 
       <ul>
-        {exercises.map((ex) => (
-          <li key={ex.id}>
-            {ex.exercise_name} (Goal ID: {ex.goal_id})
-          </li>
-        ))}
-      </ul>
+  {exercises.map((ex) => (
+    <li key={ex.id}>
+      {ex.exercise_name} (Goal ID: {ex.goal_id})
+    </li>
+  ))}
+</ul>
+
     </div>
   );
 }

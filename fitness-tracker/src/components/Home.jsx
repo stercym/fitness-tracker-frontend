@@ -29,7 +29,7 @@ function Home() {
             {/* Second Section*/}
             <div className="transformation-section">
                 <img
-                    src="https://www.shutterstock.com/image-photo/overweight-man-wearing-red-swimming-260nw-840940.jpg"
+                    src="https://img.freepik.com/premium-psd/very-fat-young-woman-with-big-belly_1094163-35761.jpg?semt=ais_incoming&w=740&q=80"
                     alt="Unfit person 2"
                 />
                 <span className="transformation-text">From this ➡️ To this</span>
@@ -84,7 +84,7 @@ function Home() {
                 <p className="third-exercise-description">
                     Running on a treadmill offers a variety of benefits that combine
                     convenience, safety, and health improvement. One of the main
-                    advantages is accessibility—treadmills allow you to exercise
+                    advantages is accessibility treadmills allow you to exercise
                     regardless of the weather, time of day, or location, making it
                     easier to maintain consistency in your workout routine.
                 </p>
@@ -98,7 +98,7 @@ function Home() {
                 <div className="last-section-text">
                     <p>
                         Weight lifting is important because it goes far beyond building
-                        muscle—it supports overall health, functionality, and well-being.
+                        muscle, it supports overall health, functionality, and well-being.
                         One of the key benefits is that it increases muscle strength, making
                         everyday tasks like carrying groceries, lifting children, or moving
                         heavy objects much easier. Stronger muscles also support joints, reducing the risk of injuries

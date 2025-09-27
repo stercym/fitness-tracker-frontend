@@ -12,12 +12,14 @@
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   margin-bottom: 10%;
+
 }
 
 .logo img {
   height: 90px;
   width: auto;
   object-fit: contain;
+  justify-content: left;
 }
 
 .nav-links a {
@@ -47,6 +49,7 @@ nav.navbar {
   background-color: #87a3c0;
   padding: 15px 0;
   z-index: 1000;
+  margin-bottom: 10%;
 }
 nav.navbar .nav-links {
   list-style: none;
