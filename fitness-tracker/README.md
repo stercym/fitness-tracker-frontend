@@ -1,16 +1,25 @@
-# React + Vite
+# Fitness Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- It is a simple fitness tracker web app built with **React** and **Flask** 
+- It allows users to create fitness goals, add exercises, and log workout details (sets, reps, and weight).  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+A user can;
+- Create and view **fitness goals**  
+- Add **exercises** associated with goals  
+- Log **workout sessions** with sets, reps, and weight  
+- Validations using **Formik + Yup** on forms  
+- REST API powered by **Flask** backend  
+- Responsive UI with clean form styling  
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Fitness tracker is a full stack application encampassing; 
+- **Frontend**: React, Formik, Yup, CSS  
+- **Backend**: Flask, Flask-SQLAlchemy, Flask-Migrate  
+- **Database**: SQLite (default), easily switchable to PostgreSQL/MySQL  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
