@@ -1,6 +1,6 @@
 function Logout({ onLogout }) {
   function handleLogout() {
-    fetch("http://127.0.0.1:5000/auth/logout", {
+    fetch("https://fitness-tracker-api-pb2t.onrender.com/auth/logout", {
       method: "POST",
       credentials: "include",
     })

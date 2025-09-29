@@ -8,13 +8,13 @@ function Exercises() {
 
   useEffect(() => {
     // Fetches all exercises from the backend
-    fetch("http://127.0.0.1:5000/exercises")
+    fetch("https://fitness-tracker-api-pb2t.onrender.com/exercises")
       .then((res) => res.json())
       .then(setExercises)
       .catch((err) => console.error("Failed to fetch exercises:", err));
 
     // Fetch goals to display goal names instead of goal IDs
-    fetch("http://127.0.0.1:5000/goals")
+    fetch("https://fitness-tracker-api-pb2t.onrender.com/goals")
       .then((res) => res.json())
       .then((goalsData) => {
         const goalsMap = {};

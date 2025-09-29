@@ -4,7 +4,7 @@ function ProgressOverview({ userId }) {
   const [progress, setProgress] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/progress/${userId}`)
+    fetch(`https://fitness-tracker-api-pb2t.onrender.com/progress/${userId}`)
       .then((res) => res.json())
       .then((data) => setProgress(data))
       .catch((err) => console.error("Failed to fetch progress:", err));

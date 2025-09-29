@@ -8,7 +8,7 @@ function ExerciseLogs() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/exercise_logs")
+    fetch("https://fitness-tracker-api-pb2t.onrender.com/exercise_logs")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch exercise logs");
         return res.json();

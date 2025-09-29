@@ -6,7 +6,7 @@ function Goals() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/goals")
+    fetch("https://fitness-tracker-api-pb2t.onrender.com/goals")
       .then((res) => res.json())
       .then((data) => {
         setGoals(data);

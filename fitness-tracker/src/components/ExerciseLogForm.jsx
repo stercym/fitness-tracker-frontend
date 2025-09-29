@@ -21,7 +21,7 @@ function ExerciseLogForm({ onLogCreated }) {
       weight: parseFloat(weight),
     };
 
-    fetch("http://127.0.0.1:5000/exercise_logs", {
+    fetch("https://fitness-tracker-api-pb2t.onrender.com/exercise_logs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newLog),

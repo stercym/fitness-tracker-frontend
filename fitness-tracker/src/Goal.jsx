@@ -4,7 +4,7 @@ function Goals() {
   const [goals, setGoals] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/goals")
+    fetch("https://fitness-tracker-api-pb2t.onrender.com/goals")
       .then((res) => res.json())
       .then((data) => setGoals(data))
       .catch((err) => console.error("Failed to fetch goals:", err));

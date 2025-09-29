@@ -19,7 +19,7 @@ function Workouts({ user }) {
   useEffect(() => {
     if (user) {
       setLoading(true);
-      fetch("http://127.0.0.1:5000/workouts", {
+      fetch("https://fitness-tracker-api-pb2t.onrender.com/workouts", {
         credentials: 'include', // Sends cookies to identify the user
       })
         .then((res) => {

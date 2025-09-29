@@ -7,7 +7,7 @@ function WorkoutForm({ onCreated }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("http://localhost:5000/api/workouts", {
+    fetch("https://fitness-tracker-api-pb2t.onrender.com/workouts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title, date, notes }),

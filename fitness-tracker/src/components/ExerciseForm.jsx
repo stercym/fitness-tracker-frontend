@@ -8,7 +8,7 @@ function ExerciseForm({ onExerciseCreated }) {
   const [goals, setGoals] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/goals")
+    fetch("https://fitness-tracker-api-pb2t.onrender.com/goals")
       .then((res) => res.json())
       .then(setGoals)
       .catch((err) => console.error("Failed to fetch goals:", err));
@@ -31,7 +31,7 @@ function ExerciseForm({ onExerciseCreated }) {
       goal_id: parseInt(values.goal_id),
     };
 
-    fetch("http://127.0.0.1:5000/exercises", {
+    fetch("https://fitness-tracker-api-pb2t.onrender.com/exercises", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newExercise),

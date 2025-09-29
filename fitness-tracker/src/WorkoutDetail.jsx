@@ -5,7 +5,7 @@ function WorkoutDetail({ id, onBack, onUpdated, onDeleted }) {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:5000/api/workouts/${id}`)
+      fetch(`https://fitness-tracker-api-pb2t.onrender.com/workouts/${id}`)
         .then((res) => res.json())
         .then((data) => setWorkout(data))
         .catch((err) => console.error("Failed to load workout:", err));
@@ -20,7 +20,7 @@ function WorkoutDetail({ id, onBack, onUpdated, onDeleted }) {
     const notes = prompt("New notes", workout.notes);
     if (!title) return;
 
-    fetch(`http://localhost:5000/api/workouts/${id}`, {
+    fetch(`https://fitness-tracker-api-pb2t.onrender.com/workouts/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...workout, title, notes }),
@@ -34,7 +34,7 @@ function WorkoutDetail({ id, onBack, onUpdated, onDeleted }) {
   }
 
   function handleDelete() {
-    fetch(`http://localhost:5000/api/workouts/${id}`, { method: "DELETE" })
+    fetch(`https://fitness-tracker-api-pb2t.onrender.com/workouts/${id}`, { method: "DELETE" })
       .then(() => onDeleted(id))
       .catch((err) => console.error("Delete failed:", err));
   }

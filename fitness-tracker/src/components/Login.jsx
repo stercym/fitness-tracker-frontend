@@ -11,7 +11,7 @@ function Login({ onLogin }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    fetch("http://127.0.0.1:5000/auth/login", {
+    fetch("https://fitness-tracker-api-pb2t.onrender.com/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include", 

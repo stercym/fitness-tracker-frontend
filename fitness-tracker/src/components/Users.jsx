@@ -5,7 +5,7 @@ function User() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/users")
+    fetch("https://fitness-tracker-api-pb2t.onrender.com/users")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch users");

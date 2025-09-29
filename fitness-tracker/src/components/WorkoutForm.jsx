@@ -18,7 +18,7 @@ export default function WorkoutForm({ onWorkoutCreated, user }) {
 
     const workoutData = { title, date, notes, user_id: user.id };
 
-    fetch("http://127.0.0.1:5000/workouts", {
+    fetch("https://fitness-tracker-api-pb2t.onrender.com/workouts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(workoutData),

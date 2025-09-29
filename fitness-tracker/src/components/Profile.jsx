@@ -31,7 +31,7 @@ function Profile() {
     setMessage(null);
     try {
       console.log("Submitting to API:", values);
-      const res = await fetch("http://127.0.0.1:5000/users", {
+      const res = await fetch("https://fitness-tracker-api-pb2t.onrender.com/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
