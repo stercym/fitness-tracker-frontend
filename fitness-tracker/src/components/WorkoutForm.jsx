@@ -1,74 +1,91 @@
 import { useState } from "react";
+import "./forms.css";
 
-export default function WorkoutForm({ onWorkoutCreated }) {
+export default function WorkoutForm({ onWorkoutCreated, user }) {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [notes, setNotes] = useState("");
-  const [userId, setUserId] = useState("");
+  const [error, setError] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
+    setError("");
 
-    const workoutData = { title, date, notes, user_id: userId };
+    if (!user) {
+      setError("You must be logged in to create a workout.");
+      return;
+    }
+
+    const workoutData = { title, date, notes, user_id: user.id };
 
     fetch("http://127.0.0.1:5000/workouts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(workoutData),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to create workout");
+        return res.json();
+      })
       .then((newWorkout) => {
         onWorkoutCreated(newWorkout);
         setTitle("");
         setDate("");
         setNotes("");
-        setUserId("");
+      })
+      .catch((err) => {
+        setError(err.message);
       });
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add Workout</h2>
+    <div className="form-container">
+      <form onSubmit={handleSubmit} className="form">
+        <h2 className="form-title">Log New Workout</h2>
 
-      <label>
-        Title:
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          placeholder="What is the workout called?"
-        />
-      </label>
-      <br />
+        <div className="form-group">
+          <label className="form-label">Workout Title</label>
+          <input
+            type="text"
+            className="form-input"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+            placeholder="E.g., Morning Run, Upper Body Strength"
+          />
+        </div>
 
-      <label>
-        Notes:
-        <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          placeholder="What do you want to achieve?"
-        />
-      </label>
+        <div className="form-group">
+          <label className="form-label">Date</label>
+          <input
+            type="date"
+            className="form-input"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
+        </div>
 
-      <label>
-        Date:
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-          placeholder="You want to achieve it by what date?"
-        />
-      </label>
-      <br />
+        <div className="form-group">
+          <label className="form-label">Notes</label>
+          <textarea
+            className="form-textarea"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            placeholder="Record any details about your workout..."
+          />
+        </div>
 
-      
-      <br />
+        {error && <p className="form-message error">{error}</p>}
 
-      <br />
-
-      <button type="submit" className="submit_workout">Create Workout</button>
-    </form>
+        <button 
+          type="submit" 
+          className="form-button"
+          disabled={!user}
+        >
+          {user ? 'Create Workout' : 'Login to Create Workout'}
+        </button>
+      </form>
+    </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./forms.css";
 
 function ExerciseLogForm({ onLogCreated }) {
   const [workoutId, setWorkoutId] = useState("");
@@ -6,13 +7,15 @@ function ExerciseLogForm({ onLogCreated }) {
   const [sets, setSets] = useState("");
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
+  const [error, setError] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
+    setError("");
 
     const newLog = {
-      workout_id: workoutId,
-      exercise_id: exerciseId,
+      workout_id: parseInt(workoutId),
+      exercise_id: parseInt(exerciseId),
       sets: parseInt(sets),
       reps: parseInt(reps),
       weight: parseFloat(weight),
@@ -23,78 +26,103 @@ function ExerciseLogForm({ onLogCreated }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newLog),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to create exercise log");
+        return res.json();
+      })
       .then((data) => {
         onLogCreated(data);
+        // Reset form
         setWorkoutId("");
         setExerciseId("");
         setSets("");
         setReps("");
         setWeight("");
+      })
+      .catch((err) => {
+        setError(err.message);
       });
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add Exercise Log</h2>
+    <div className="form-container">
+      <form onSubmit={handleSubmit} className="form">
+        <h2 className="form-title">Log Exercise Details</h2>
 
-      <label>
-        Workout ID:
-        <input
-          type="number"
-          value={workoutId}
-          onChange={(e) => setWorkoutId(e.target.value)}
-          required
-        />
-      </label>
-      <br />
+        <div className="form-group">
+          <label className="form-label">Workout ID</label>
+          <input
+            type="number"
+            className="form-input"
+            value={workoutId}
+            onChange={(e) => setWorkoutId(e.target.value)}
+            required
+            min="1"
+            placeholder="Enter workout ID"
+          />
+        </div>
 
-      <label>
-        Exercise ID:
-        <input
-          type="number"
-          value={exerciseId}
-          onChange={(e) => setExerciseId(e.target.value)}
-          required
-        />
-      </label>
-      <br />
+        <div className="form-group">
+          <label className="form-label">Exercise ID</label>
+          <input
+            type="number"
+            className="form-input"
+            value={exerciseId}
+            onChange={(e) => setExerciseId(e.target.value)}
+            required
+            min="1"
+            placeholder="Enter exercise ID"
+          />
+        </div>
 
-      <label>
-        Sets:
-        <input
-          type="number"
-          value={sets}
-          onChange={(e) => setSets(e.target.value)}
-          required
-        />
-      </label>
-      <br />
+        <div className="form-group">
+          <label className="form-label">Sets</label>
+          <input
+            type="number"
+            className="form-input"
+            value={sets}
+            onChange={(e) => setSets(e.target.value)}
+            required
+            min="1"
+            placeholder="Number of sets"
+          />
+        </div>
 
-      <label>
-        Reps:
-        <input
-          type="number"
-          value={reps}
-          onChange={(e) => setReps(e.target.value)}
-          required
-        />
-      </label>
-      <br />
+        <div className="form-group">
+          <label className="form-label">Reps</label>
+          <input
+            type="number"
+            className="form-input"
+            value={reps}
+            onChange={(e) => setReps(e.target.value)}
+            required
+            min="1"
+            placeholder="Reps per set"
+          />
+        </div>
 
-      <label>
-        Weight (kg):
-        <input
-          type="number"
-          step="0.1"
-          value={weight}
-          onChange={(e) => setWeight(e.target.value)}
-        />
-      </label>
-      <br />
+        <div className="form-group">
+          <label className="form-label">Weight (kg)</label>
+          <input
+            type="number"
+            className="form-input"
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+            required
+            min="0"
+            step="0.1"
+            placeholder="Weight used"
+          />
+        </div>
 
-      <button type="submit">Add Log</button>
-    </form>
+        {error && <p className="form-message error">{error}</p>}
+
+        <button type="submit" className="form-button">
+          Log Exercise
+        </button>
+      </form>
+    </div>
   );
 }
+
 export default ExerciseLogForm;

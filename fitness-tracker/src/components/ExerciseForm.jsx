@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import React from "react";
+import { useEffect, useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import "./forms.css";
 
 function ExerciseForm({ onExerciseCreated }) {
-  const [exerciseName, setExerciseName] = useState("");
-  const [goalId, setGoalId] = useState("");
   const [goals, setGoals] = useState([]);
 
-  // Fetch all goals for the dropdown
   useEffect(() => {
     fetch("http://127.0.0.1:5000/goals")
       .then((res) => res.json())
@@ -13,12 +14,21 @@ function ExerciseForm({ onExerciseCreated }) {
       .catch((err) => console.error("Failed to fetch goals:", err));
   }, []);
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  const validationSchema = Yup.object({
+    exercise_name: Yup.string()
+      .min(3, "Exercise name must be at least 3 characters")
+      .matches(/^[A-Za-z\s]+$/, "Exercise name must only contain letters and spaces") 
+      .required("Exercise name is required"),
 
+    goal_id: Yup.number()
+      .typeError("Please select a valid goal") 
+      .required("Goal selection is required"),
+  });
+
+  const handleSubmit = (values, { resetForm }) => {
     const newExercise = {
-      exercise_name: exerciseName,
-      goal_id: parseInt(goalId),
+      exercise_name: values.exercise_name,
+      goal_id: parseInt(values.goal_id),
     };
 
     fetch("http://127.0.0.1:5000/exercises", {
@@ -29,45 +39,64 @@ function ExerciseForm({ onExerciseCreated }) {
       .then((res) => res.json())
       .then((data) => {
         onExerciseCreated(data);
-        setExerciseName("");
-        setGoalId("");
-      });
-  }
+        resetForm();
+      })
+      .catch((err) => console.error("Failed to create exercise:", err));
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add Exercise</h2>
+    <div className="form-container">
+      <Formik
+        initialValues={{ exercise_name: "", goal_id: "" }}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {() => (
+          <Form className="form">
+            <h2 className="form-title">Add New Exercise</h2>
 
-      <label>
-        Exercise Name:
-        <input
-          type="text"
-          value={exerciseName}
-          onChange={(e) => setExerciseName(e.target.value)}
-          required
-        />
-      </label>
-      <br />
+            {/* Exercise Name */}
+            <div className="form-group">
+              <label className="form-label">Exercise Name</label>
+              <Field
+                type="text"
+                name="exercise_name"
+                className="form-input"
+                placeholder="Enter exercise name"
+              />
+              <ErrorMessage
+                name="exercise_name"
+                component="div"
+                className="form-error"
+              />
+            </div>
 
-      <label>
-        Goal:
-        <select
-          value={goalId}
-          onChange={(e) => setGoalId(e.target.value)}
-          required
-        >
-          <option value="">-- Select Goal --</option>
-          {goals.map((g) => (
-            <option key={g.id} value={g.id}>
-              {g.name}
-            </option>
-          ))}
-        </select>
-      </label>
-      <br />
+            {/* Associated Goal */}
+            <div className="form-group">
+              <label className="form-label">Associated Goal</label>
+              <Field as="select" name="goal_id" className="form-select">
+                <option value="">Select a goal</option>
+                {goals.map((g) => (
+                  <option key={g.id} value={g.id}>
+                    {g.name}
+                  </option>
+                ))}
+              </Field>
+              <ErrorMessage
+                name="goal_id"
+                component="div"
+                className="form-error"
+              />
+            </div>
 
-      <button type="submit">Add Exercise</button>
-    </form>
+            <button type="submit" className="form-button">
+              Add Exercise
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 }
+
 export default ExerciseForm;

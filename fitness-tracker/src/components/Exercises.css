@@ -1,0 +1,79 @@
+.exercises-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.exercises-header {
+  color: var(--text-primary);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.exercises-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.exercise-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.exercise-item {
+  background: var(--surface);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.exercise-item:hover {
+  transform: translateY(-2px);
+}
+
+.exercise-name {
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+.exercise-goal {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.exercises-empty {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 2rem;
+  background: var(--surface);
+  border-radius: 0.5rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .exercises-container {
+    padding: 1rem;
+  }
+
+  .exercises-header {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .exercise-list {
+    grid-template-columns: 1fr;
+  }
+}

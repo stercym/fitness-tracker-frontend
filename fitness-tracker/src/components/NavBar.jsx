@@ -11,7 +11,6 @@ function NavBar({ user, onLogout }) {
       />
       <ul className="nav-links">
         <li><strong><Link to="/">Home</Link></strong></li>
-        <li><strong><Link to="/users">Users</Link></strong></li>
         <li><strong><Link to="/goals">Goals</Link></strong></li>
         <li><strong><Link to="/workouts">Workouts</Link></strong></li>
         <li><strong><Link to="/exercises">Exercises</Link></strong></li>

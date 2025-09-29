@@ -94,7 +94,6 @@ function Home() {
             {/* Last Section */}
             <div className="section section-right">
 
-                {/* Text on Left */}
                 <div className="last-section-text">
                     <p>
                         Weight lifting is important because it goes far beyond building
@@ -108,7 +107,6 @@ function Home() {
                     </p>
                 </div>
 
-                {/* Image on Right */}
                 <img
                     src="https://www.si.com/.image/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/MjAwNzY5NzU2MjAwOTY5NjAy/titan-hero.png"
                     alt="Kettlebell"

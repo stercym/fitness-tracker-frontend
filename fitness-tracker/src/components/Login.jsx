@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./forms.css";
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -11,50 +14,49 @@ function Login({ onLogin }) {
     fetch("http://127.0.0.1:5000/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      credentials: "include", // include cookies
+      credentials: "include", 
       body: JSON.stringify({ email, password }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          setMessage(data.error);
+          setMessage({ text: data.error, type: "error" });
         } else {
-          setMessage("Login successful!");
+          setMessage({ text: "Login successful!", type: "success" });
           if (onLogin) onLogin(data.user);
+          navigate("/workouts");
         }
       })
-      .catch(() => setMessage("Something went wrong."));
+      .catch(() => setMessage({ text: "Something went wrong.", type: "error" }));
   }
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
+    <div className="form-container">
+      <h2 className="form-title">Login</h2>
+      <form onSubmit={handleSubmit} className="form">
+        <div className="form-group">
+          <label className="form-label">Email:</label>
           <input
             type="email"
+            className="form-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        <br />
-
-        <label>
-          Password:
+        </div>
+        <div className="form-group">
+          <label className="form-label">Password:</label>
           <input
             type="password"
+            className="form-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        <br />
-
-        <button type="submit">Login</button>
+        </div>
+        <button type="submit" className="form-button">Login</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p className={`form-message ${message.type}`}>{message.text}</p>}
     </div>
   );
 }
